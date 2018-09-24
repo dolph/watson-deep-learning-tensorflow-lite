@@ -3,22 +3,11 @@
 
 # Deploying Watson Deep Learning Models to Edge Devices
 
-This project includes sample code how to train a model with [TensorFlow](https://www.tensorflow.org/) and the [Deep Learning service](https://www.ibm.com/blogs/watson/2018/03/deep-learning-service-ibm-makes-advanced-ai-accessible-users-everywhere/) within Watson Studio and how to deploy and access the model on iOS devices.
-
-This is a screenshot from the app running on an iPhone where currently a truck is recognized:
-
-![alt text](documentation/ios-camera-app-small.JPEG "Screenshot")
-
-Check out the [video](https://youtu.be/avMQ5VSFb3A) for a quick demo.
-
-In order to train the model I've taken pictures from seven items: plug, soccer ball, mouse, hat, truck, banana and headphones. You can find the images in the [data](data/images) directory.
-
-![alt text](documentation/items-small.JPG "Photo")
-
+This project includes sample code how to train a model with [TensorFlow](https://www.tensorflow.org/) and the [Deep Learning service](https://www.ibm.com/blogs/watson/2018/03/deep-learning-service-ibm-makes-advanced-ai-accessible-users-everywhere/) within Watson Studio and how to deploy and access the model on Android devices.
 
 ## Prerequisites
 
-Get a free [IBM Cloud](https://ibm.biz/nheidloff) lite account (no time restriction, no credit card required).
+Get a free [IBM Cloud](https://www.ibm.com/cloud) lite account (no time restriction, no credit card required).
 
 Create an instance of the [Machine Learning](https://console.bluemix.net/catalog/services/machine-learning) service. From the credentials get the user name, password and the instance id.
 
@@ -27,9 +16,6 @@ Install the IBM Cloud CLI with the machine learning plugin and set environment v
 Create an instance of the [Cloud Object Storage
 ](https://console.bluemix.net/catalog/services/cloud-object-storage) service and create HMAC credentials by following these [instructions](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_object_store.html). Make sure to use 'Writer' or 'Manager' access and note the aws_access_key_id and aws_secret_access_key for a later step.
 
-Install and configure the AWS CLI by following these [instructions](https://console.bluemix.net/docs/services/cloud-object-storage/cli/aws-cli.html#use-the-aws-cli).
-
-
 ## Training of the Model
 
 Models can be trained either locally, with IBM Watson in the cloud or via Fabric for Deep Learning on a Kubernetes cluster.
@@ -37,14 +23,13 @@ Models can be trained either locally, with IBM Watson in the cloud or via Fabric
 In all cases clone this repo, download MobileNet and set up the environment:
 
 ```bash
-$ git clone https://github.com/nheidloff/watson-deep-learning-tensorflow-lite
+$ git clone https://github.com/IBM/watson-deep-learning-tensorflow-lite
 $ cd watson-deep-learning-tensorflow-lite
 $ my_project_dir=$(pwd)
 $ export PROJECT_DIR=$my_project_dir
 $ cd data
 $ wget http://download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_0.25_224.tgz
 $ tar xvzf mobilenet_v1_0.25_224.tgz
-$ cd mobilenet_v1_0.25_224
 $ wget http://download.tensorflow.org/models/mobilenet_v1_0.25_224_frozen.tgz
 $ tar xvzf mobilenet_v1_0.25_224_frozen.tgz
 $ cp -R ${PROJECT_DIR}/data ${PROJECT_DIR}/volume/data
@@ -181,8 +166,8 @@ $ exit
 Run these commands:
 
 ```bash
-$ cp ${PROJECT_DIR}/volume/labels.txt ${PROJECT_DIR}/ios-photos/data/labels.txt
-$ cp ${PROJECT_DIR}/volume/labels.txt ${PROJECT_DIR}/ios-camera/data/labels.txt
+$ cp ${PROJECT_DIR}/volume/labels.txt ${PROJECT_DIR}/android/tfmobile/assets/
+$ cp ${PROJECT_DIR}/volume/graph.pb ${PROJECT_DIR}/android/tfmobile/assets/
 ```
 
 
@@ -213,8 +198,9 @@ $ exit
 After exiting the container, run these commands:
 
 ```bash
-$ cp ${PROJECT_DIR}/volume/graph.lite ${PROJECT_DIR}/ios-photos/data/graph.lite
-$ cp ${PROJECT_DIR}/volume/graph.lite ${PROJECT_DIR}/ios-camera/data/mobilenet_quant_v1_224.tflite
+????should be tflite???
+$ cp ${PROJECT_DIR}/volume/graph.lite ${PROJECT_DIR}/android/tfmobile/assets/
+$ cp ${PROJECT_DIR}/volume/graph.lite ${PROJECT_DIR}/android/tfmobile/assets/
 ```
 
 
